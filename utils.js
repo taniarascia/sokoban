@@ -36,10 +36,10 @@ export function generateGameBoard({ level }) {
   }
 }
 
-export function countBlocks(blockCount, y, x, direction) {
+export function countBlocks(blockCount, y, x, direction, board) {
   if (isBlock(board[y][x])) {
     blockCount++
-    return countBlocks(blockCount, getY(y, direction), getX(x, direction), direction)
+    return countBlocks(blockCount, getY(y, direction), getX(x, direction), direction, board)
   } else {
     return blockCount
   }
