@@ -72,6 +72,19 @@ class Sokoban {
         this.paintCell(this.context, cell, x, y)
       })
     })
+
+    const rowsWithVoid = this.board.filter((row) => row.some((entry) => entry === VOID))
+    const rowsWithSuccess = this.board.filter((row) => row.some((entry) => entry === SUCCESS_BLOCK))
+    const isWin = rowsWithVoid.length === 0 && rowsWithSuccess.length === 6
+
+    if (isWin) {
+      // A winner is you
+      this.context.fillStyle = '#111'
+      this.context.fillRect(0, 0, size.width, size.height)
+      this.context.font = 'bold 60px sans-serif'
+      this.context.fillStyle = colors.success_block.fill
+      this.context.fillText('A Winner is You!', 65, 300)
+    }
   }
 
   findPlayerCoords() {
@@ -108,19 +121,30 @@ class Sokoban {
       return
     }
 
+    // Count how many blocks are in a row
     let blocksInARow = 0
     if (isBlock(this.board[newBoxY][newBoxX])) {
-      blocksInARow = countBlocks(1, newBoxY, newBoxX, direction)
-      console.log(blocksInARow)
+      blocksInARow = countBlocks(1, newBoxY, newBoxX, direction, this.board)
+      // See what the next block is
+      const nextBlock =
+        this.board[getY(newPlayerY, direction, blocksInARow)][
+          getX(newPlayerX, direction, blocksInARow)
+        ]
+      // Push all the blocks if you can
+      if (isTraversible(nextBlock)) {
+        for (let i = 0; i < blocksInARow; i++) {
+          // Add blocks
+          this.board[getY(newBoxY, direction, i)][getX(newBoxX, direction, i)] =
+            levelOneMap[getY(newBoxY, direction, i)][getX(newBoxX, direction, i)] === VOID
+              ? SUCCESS_BLOCK
+              : BLOCK
+        }
+        this.movePlayer(playerCoords, direction)
+      }
     } else {
-      // Replace previous block spot with initial board state (void or empty)
-      this.board[newPlayerY][newPlayerX] =
-        levelOneMap[newPlayerY][newPlayerX] === VOID ? VOID : EMPTY
-
       // Move box
       // If on top of void, make into a success box
       this.board[newBoxY][newBoxX] = levelOneMap[newBoxY][newBoxX] === VOID ? SUCCESS_BLOCK : BLOCK
-
       this.movePlayer(playerCoords, direction)
     }
   }
