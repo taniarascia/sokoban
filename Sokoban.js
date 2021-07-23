@@ -129,7 +129,7 @@ class Sokoban {
       // See what the next block is
       const nextBlock =
         this.board[getY(newPlayerY, direction, blocksInARow)][
-         getX(newPlayerX, direction, blocksInARow)
+          getX(newPlayerX, direction, blocksInARow)
         ]
       // Push all the blocks if you can
       if (isTraversible(nextBlock)) {
