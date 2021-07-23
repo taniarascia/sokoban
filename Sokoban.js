@@ -14,6 +14,7 @@ import {
   isBlock,
   isWall,
   isTraversible,
+  isVoid,
   getX,
   getY,
   countBlocks,
@@ -104,7 +105,7 @@ class Sokoban {
   movePlayer(playerCoords, direction) {
     // Replace previous spot with initial board state (void or empty)
     this.board[playerCoords.y][playerCoords.x] =
-      levelOneMap[playerCoords.y][playerCoords.x] === VOID ? VOID : EMPTY
+      isVoid(levelOneMap[playerCoords.y][playerCoords.x]) ? VOID : EMPTY
 
     // Move player
     this.board[getY(playerCoords.y, direction, 1)][getX(playerCoords.x, direction, 1)] = PLAYER

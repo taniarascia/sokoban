@@ -5,6 +5,7 @@ export const isBlock = (cell) => [BLOCK, SUCCESS_BLOCK].includes(cell)
 export const isPlayer = (cell) => [PLAYER].includes(cell)
 export const isTraversible = (cell) => [EMPTY, VOID].includes(cell)
 export const isWall = (cell) => [WALL].includes(cell)
+export const isVoid = (cell) => [VOID, SUCCESS_BLOCK].includes(cell)
 
 export const getX = (x, direction, spaces = 1) => {
   if (direction === 'up' || direction === 'down') {
