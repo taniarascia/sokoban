@@ -129,7 +129,7 @@ class Sokoban {
       // See what the next block is
       const nextBlock =
         this.board[getY(newPlayerY, direction, blocksInARow)][
-        getX(newPlayerX, direction, blocksInARow)
+         getX(newPlayerX, direction, blocksInARow)
         ]
       // Push all the blocks if you can
       if (isTraversible(nextBlock)) {
@@ -145,7 +145,6 @@ class Sokoban {
     } else {
       // Move box
       // If on top of void, make into a success box
-      debugger;
       this.board[newBoxY][newBoxX] = isVoid(levelOneMap[newBoxY][newBoxX]) ? SUCCESS_BLOCK : BLOCK
       this.movePlayer(playerCoords, direction)
     }
