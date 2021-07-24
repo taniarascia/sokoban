@@ -136,7 +136,7 @@ class Sokoban {
         for (let i = 0; i < blocksInARow; i++) {
           // Add blocks
           this.board[getY(newBoxY, direction, i)][getX(newBoxX, direction, i)] =
-            levelOneMap[getY(newBoxY, direction, i)][getX(newBoxX, direction, i)] === VOID
+            isVoid(levelOneMap[getY(newBoxY, direction, i)][getX(newBoxX, direction, i)])
               ? SUCCESS_BLOCK
               : BLOCK
         }
@@ -145,7 +145,7 @@ class Sokoban {
     } else {
       // Move box
       // If on top of void, make into a success box
-      this.board[newBoxY][newBoxX] = levelOneMap[newBoxY][newBoxX] === VOID ? SUCCESS_BLOCK : BLOCK
+      this.board[newBoxY][newBoxX] = isVoid(levelOneMap[newBoxY][newBoxX]) ? SUCCESS_BLOCK : BLOCK
       this.movePlayer(playerCoords, direction)
     }
   }
