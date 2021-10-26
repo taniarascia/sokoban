@@ -75,6 +75,11 @@ class Sokoban {
     })
 
     const rowsWithVoid = this.board.filter((row) => row.some((entry) => entry === VOID))
+    // The player herself might be standing on an initially void cell:
+    if (isVoid(levelOneMap[this.findPlayerCoords().y][this.findPlayerCoords().x])) {
+      rowsWithVoid.push(levelOneMap[this.findPlayerCoords().y]);
+    }
+
     const rowsWithSuccess = this.board.filter((row) => row.some((entry) => entry === SUCCESS_BLOCK))
     const isWin = rowsWithVoid.length === 0 && rowsWithSuccess.length === 6
 
