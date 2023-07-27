@@ -1,4 +1,4 @@
-import { EMPTY, WALL, BLOCK, SUCCESS_BLOCK, VOID, PLAYER, levelOneMap } from './constants.js'
+import { EMPTY, WALL, BLOCK, SUCCESS_BLOCK, VOID, PLAYER, levelsMap } from './constants.js'
 
 // Helpers
 export const isBlock = (cell) => [BLOCK, SUCCESS_BLOCK].includes(cell)
@@ -32,9 +32,7 @@ export const getY = (y, direction, spaces = 1) => {
 }
 
 export function generateGameBoard({ level }) {
-  if (level === 1) {
-    return JSON.parse(JSON.stringify(levelOneMap)) // clone deep hack
-  }
+    return JSON.parse(JSON.stringify(levelsMap[level])) // clone deep hack
 }
 
 export function countBlocks(blockCount, y, x, direction, board) {
